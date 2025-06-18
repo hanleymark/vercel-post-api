@@ -5,7 +5,7 @@ export default function handler(req, res) {
 
     const token = req.headers['x-api-key'];
     if (token !== 'TOPSECRET') {
-        return res.status(403).send(`Token'${token}' is not correct`);
+        return res.status(403).send('Forbidden');
     }
 
     const data = req.body;
