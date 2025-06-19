@@ -1,6 +1,6 @@
 export default function handler(req, res) {
     if (req.method !== 'POST') {
-      return res.status(405).end('Method Not Allowed');
+      return res.status(405).send('Method Not Allowed');
     }
   
     const token = req.headers['x-api-key']?.trim();
@@ -15,4 +15,3 @@ export default function handler(req, res) {
       received: body
     });
 }
-  
