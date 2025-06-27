@@ -8,9 +8,9 @@ export default function handler(req, res) {
       return res.status(403).send('Forbidden');
     }
 
-    if (req.body.lpId % 2 === 1) {
-      return res.status(403).send('Only even lastProcessedId allowed');
-    }
+    // if (req.body.lpId % 2 === 1) {
+    //   return res.status(403).send('Only even lastProcessedId allowed');
+    // }
   
     const body = req.body;
   
