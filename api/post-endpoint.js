@@ -8,11 +8,11 @@ export default function handler(req, res) {
 
   const requestApiKey = req.headers['x-api-key']?.trim();
   const secret = process.env.API_KEY;
-
+  
   if (requestApiKey !== process.env.API_KEY) {
     return res.status(403).json({
       success: false,
-      error: `API key should be ${secret}`
+      error: 'Forbidden'
     });
   }
 
