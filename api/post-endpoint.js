@@ -8,9 +8,11 @@ export default function handler(req, res) {
       return res.status(403).send('Forbidden');
     }
 
-    // if (req.body.lpId % 2 === 1) {
-    //   return res.status(403).send('Only even lastProcessedId allowed');
-    // }
+    const onlyEven = req.query.only_even === 'true'; // query param check
+
+    if (onlyEven && req.body.lpId % 2 === 1) {
+      return res.status(403).send('Only even lastProcessedId allowed!');
+    }
   
     const body = req.body;
   
