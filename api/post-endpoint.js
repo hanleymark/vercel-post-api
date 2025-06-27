@@ -7,7 +7,7 @@ export default function handler(req, res) {
   }
 
   const requestApiKey = req.headers['x-api-key']?.trim();
-  const secret = process.env.API_KEY;
+  const secret = process.env.API_KEY.trim();
   
   if (requestApiKey !== secret) {
     return res.status(403).json({
