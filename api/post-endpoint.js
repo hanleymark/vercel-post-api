@@ -16,10 +16,11 @@ export default function handler(req, res) {
     });
   }
 
-  const onlyEven = req.query.only_even === 'true';
+  // Simulate HTTP error for odd lastProcessedId values
+  const evenOnly = req.query.even_only === 'true';
   const body = req.body;
 
-  if (onlyEven && body.lpId % 2 === 1) {
+  if (evenOnly && body.lastProcessedId % 2 !== 0) {
     return res.status(403).json({
       success: false,
       error: 'Only even lastProcessedId allowed!'
