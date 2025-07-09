@@ -7,7 +7,15 @@ export default function handler(req, res) {
   }
 
   const requestApiKey = req.headers['x-api-key']?.trim();
-  const secret = process.env.API_KEY.trim();
+  const secret = process.env.API_KEY?.trim();
+
+  if (!secret) {
+    return res.status(500).json({
+      success: false,
+      error: 'Missing API key'
+    });
+  }
+
   
   if (requestApiKey !== secret) {
     return res.status(403).json({
@@ -19,11 +27,13 @@ export default function handler(req, res) {
   // Simulate HTTP error for odd lastProcessedId values
   const evenOnly = req.query.even_only === 'true';
   const body = req.body;
+  const lastProcessedId = body?.lastProcessedId;
 
-  if (evenOnly && body.lastProcessedId % 2 !== 0) {
+  if (evenOnly && lastProcessedId % 2 !== 0) {
     return res.status(403).json({
       success: false,
-      error: 'Only even lastProcessedId allowed!'
+      error: 'Only even lastProcessedId allowed!',
+      lastProcessedId: lastProcessedId
     });
   }
 
