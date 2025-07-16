@@ -35,7 +35,7 @@ export default function handler(req, res) {
   if (failOnMultiple && lastProcessedId % multiple === 0) {
     return res.status(403).json({
       success: false,
-      error: `Only lastProcId multiples of ${multiple} allowed`,
+      error: `lastProcessedId multiples of ${multiple} not allowed`,
       received: body
     });
   }
