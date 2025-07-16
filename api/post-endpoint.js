@@ -20,19 +20,22 @@ export default function handler(req, res) {
   if (requestApiKey !== secret) {
     return res.status(403).json({
       success: false,
-      error: 'Forbidden'
+      error: 'Forbidden',
     });
   }
 
   // Simulate HTTP error for odd lastProcessedId values
-  const evenOnly = req.query.even_only === 'true';
+  const multipleStr = req.query.fail_on_multiple;
+  const multiple = multipleStr !== undefined ? parseInt(multipleStr, 10) : null;
+  const failOnMultiple = !Number.isNaN(multiple);
+
   const body = req.body;
   const lastProcessedId = body?.lastProcessedId;
 
-  if (evenOnly && lastProcessedId % 2 !== 0) {
+  if (failOnMultiple && lastProcessedId % multiple === 0) {
     return res.status(403).json({
       success: false,
-      error: 'Only even lastProcessedId allowed!',
+      error: `Only lastProcId multiples of ${multiple} allowed`,
       received: body
     });
   }
