@@ -42,8 +42,8 @@ export default function handler(req, res) {
 
   res.status(200).json({
     "success": true,
-    "received": body,
 	"failOnMultiple": failOnMultiple,
-	"multiple": multiple
+	"multiple": multiple,
+	"received": body
   });
 }
