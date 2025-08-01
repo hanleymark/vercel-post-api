@@ -16,7 +16,6 @@ export default function handler(req, res) {
     });
   }
 
-  
   if (requestApiKey !== secret) {
     return res.status(403).json({
       success: false,
@@ -24,35 +23,41 @@ export default function handler(req, res) {
     });
   }
 
-  // Simulate HTTP error for odd lastProcessedId values
   const multipleStr = req.query.fail_on_multiple;
   const multiple = multipleStr !== undefined ? parseInt(multipleStr, 10) : null;
-  const failOnMultiple = !Number.isNaN(multiple);
+  const failOnMultiple = Number.isInteger(multiple); // ✅ correct meaning
 
-  const body = req.body;
-  const lastProcessedIdStr = body?.lastProcessedId;
-  const lastProcessedId = parseInt(lastProcessedIdStr, 10);
-  
-  if (failOnMultiple && !Number.isInteger(lastProcessedId)) {
-	return res.status(400).json({
-		success: false,
-		error: 'Invalid lastProcessedId',
-		received: body
-	});
-  }
-
-  if (failOnMultiple && lastProcessedId % multiple === 0) {
-    return res.status(403).json({
+  if (multipleStr !== undefined && !failOnMultiple) {
+    return res.status(400).json({
       success: false,
-      error: `lastProcessedId multiples of ${multiple} not allowed`,
-      received: body
+      error: 'Invalid multiple: must be an integer',
+      received: { fail_on_multiple: multipleStr }
     });
   }
 
+  const body = req.body;
+  const lastProcessedId = parseInt(body?.lastProcessedId, 10);
+
+  if (failOnMultiple) {
+    if (!Number.isInteger(lastProcessedId)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid lastProcessedId: must be an integer',
+        received: body
+      });
+    }
+
+    if (lastProcessedId % multiple === 0) {
+      return res.status(403).json({
+        success: false,
+        error: `lastProcessedId multiples of ${multiple} not allowed`,
+        received: body
+      });
+    }
+  }
+
   res.status(200).json({
-    "success": true,
-	"failOnMultiple": failOnMultiple,
-	"multiple": multiple,
-	"received": body
+    success: true,
+    received: body
   });
 }
