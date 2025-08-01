@@ -25,7 +25,7 @@ export default function handler(req, res) {
 
   const multipleStr = req.query.fail_on_multiple;
   const multiple = multipleStr !== undefined ? parseInt(multipleStr, 10) : null;
-  const failOnMultiple = Number.isInteger(multiple); // ✅ correct meaning
+  const failOnMultiple = Number.isInteger(multiple);
 
   if (multipleStr !== undefined && !failOnMultiple) {
     return res.status(400).json({
