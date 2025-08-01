@@ -10,7 +10,7 @@ export default function handler(req, res) {
   const secret = process.env.API_KEY?.trim();
 
   if (!secret) {
-    return res.status(500).json({
+    return res.status(403).json({
       success: false,
       error: 'Missing API key'
     });
@@ -31,7 +31,15 @@ export default function handler(req, res) {
 
   const body = req.body;
   const lastProcessedIdStr = body?.lastProcessedId;
-  const lastProcessedId = lastProcessedIdStr !== undefined ? parseInt(lastProcessedIdStr, 10) : null;
+  const lastProcessedId = parseInt(lastProcessedIdStr, 10);
+  
+  if (failOnMultiple && !Number.isInteger(lastProcessedId)) {
+	return res.status(400).json({
+		success: false,
+		error: 'Invalid lastProcessedId',
+		received: body
+	});
+  }
 
   if (failOnMultiple && lastProcessedId % multiple === 0) {
     return res.status(403).json({
