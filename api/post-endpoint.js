@@ -36,7 +36,7 @@ export default function handler(req, res) {
   }
 
   const body = req.body;
-  const lastProcessedId = parseInt(body?.lastProcessedId, 10);
+  const lastProcessedId = parseInt(body?.header.lastProcessedId, 10);
 
   if (failOnMultiple) {
     if (!Number.isInteger(lastProcessedId)) {
