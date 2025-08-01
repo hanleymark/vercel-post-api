@@ -31,7 +31,7 @@ export default function handler(req, res) {
 
   const body = req.body;
   const lastProcessedIdStr = body?.lastProcessedId;
-  const lastProcessedId = lastProcessedIdStr !== undefined ? parseInt(multipleStr, 10) : null;
+  const lastProcessedId = lastProcessedIdStr !== undefined ? parseInt(lastProcessedIdStr, 10) : null;
 
   if (failOnMultiple && lastProcessedId % multiple === 0) {
     return res.status(403).json({
