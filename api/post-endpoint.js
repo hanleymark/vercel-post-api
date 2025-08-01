@@ -23,6 +23,8 @@ export default function handler(req, res) {
     });
   }
 
+  const body = req.body;
+
   const multipleStr = req.query.fail_on_multiple;
   const multiple = multipleStr !== undefined ? parseInt(multipleStr, 10) : null;
   const failOnMultiple = Number.isInteger(multiple);
@@ -31,11 +33,10 @@ export default function handler(req, res) {
     return res.status(400).json({
       success: false,
       error: 'Invalid multiple: must be an integer',
-      received: { fail_on_multiple: multipleStr }
+      received: body
     });
   }
 
-  const body = req.body;
   const lastProcessedId = parseInt(body?.header.lastProcessedId, 10);
 
   if (failOnMultiple) {
