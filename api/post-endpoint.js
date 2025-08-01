@@ -42,7 +42,7 @@ export default function handler(req, res) {
     if (!Number.isInteger(lastProcessedId)) {
       return res.status(400).json({
         success: false,
-        error: 'Invalid lastProcessedId: must be an integer',
+        error: `Invalid lastProcessedId: must be an integer (${lastProcessedId} sent)`,
         received: body
       });
     }
