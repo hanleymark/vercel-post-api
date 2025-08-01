@@ -30,7 +30,8 @@ export default function handler(req, res) {
   const failOnMultiple = !Number.isNaN(multiple);
 
   const body = req.body;
-  const lastProcessedId = body?.lastProcessedId;
+  const lastProcessedIdStr = body?.lastProcessedId;
+  const lastProcessedId = lastProcessedIdStr !== undefined ? parseInt(multipleStr, 10) : null;
 
   if (failOnMultiple && lastProcessedId % multiple === 0) {
     return res.status(403).json({
