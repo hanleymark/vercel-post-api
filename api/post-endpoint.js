@@ -33,7 +33,7 @@ export default function handler(req, res) {
     return res.status(400).json({
       success: false,
       error: 'Invalid multiple: must be an integer',
-      received: body
+      //received: body
     });
   }
 
@@ -44,7 +44,7 @@ export default function handler(req, res) {
       return res.status(400).json({
         success: false,
         error: `Invalid lastProcessedId: must be an integer (${lastProcessedId} sent)`,
-        received: body
+        //received: body
       });
     }
 
@@ -52,13 +52,13 @@ export default function handler(req, res) {
       return res.status(403).json({
         success: false,
         error: `lastProcessedId multiples of ${multiple} not allowed`,
-        received: body
+        //received: body
       });
     }
   }
 
   res.status(200).json({
     success: true,
-    received: body
+    //received: body
   });
 }
