@@ -56,7 +56,7 @@ export default function handler(req, res) {
       });
     }
   }
-  console.log(`CN POST request for CN ${lastProcessedId} was successful`);
+  //console.log(`CN POST request for CN ${lastProcessedId} was successful`);
   res.status(200).json({
     success: true,
     //received: body
