@@ -17,9 +17,8 @@ export default function handler(req, res) {
   }
 
   // Log request details to console 
-  console.log('--- Received log entry ---');
+  console.log('Received log entry:');
   console.log(JSON.stringify(req.body, null, 2));
-  console.log('--------------------------');
 
   return res.status(200).json({
     success: true,
