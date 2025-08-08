@@ -10,6 +10,7 @@ export default function handler(req, res) {
   const secret = process.env.API_KEY?.trim();
 
   if (!secret || requestApiKey !== secret) {
+    console.log(`Req API key: ${requestApiKey}, Secret: ${secret}`);
     return res.status(403).json({
       success: false,
       error: 'Forbidden or missing API key',
