@@ -61,6 +61,6 @@ export default function handler(req, res) {
   console.log('Full request body:', JSON.stringify(body, null, 2));
   res.status(200).json({
     success: true,
-    //received: body
+    received: body
   });
 }
