@@ -57,10 +57,9 @@ export default function handler(req, res) {
     }
   }
   const bannerId = body?.header.bannerId;
-  //console.log(`Received CN POST request for CN ${lastProcessedId} (bannerId: ${bannerId})`);
-  console.log('Full request body:', JSON.stringify(body, null, 2));
+  console.log(`Received CN POST request for CN ${lastProcessedId} (bannerId: ${bannerId})`);
   res.status(200).json({
     success: true,
-    received: body
+    //received: body
   });
 }
