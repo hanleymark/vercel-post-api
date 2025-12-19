@@ -37,7 +37,7 @@ export default function handler(req, res) {
     });
   }
 
-  const lastProcessedId = parseInt(body?.header.lastProcessedId, 10);
+  const lastProcessedId = parseInt(body?.metaData.lastProcessedId, 10);
 
   if (failOnMultiple) {
     if (!Number.isInteger(lastProcessedId)) {
@@ -56,7 +56,7 @@ export default function handler(req, res) {
       });
     }
   }
-  const bannerId = body?.header.bannerId;
+  const bannerId = body?.metaData.bannerId;
   console.log(`Received CN POST request for CN ${lastProcessedId} (bannerId: ${bannerId})`);
   res.status(200).json({
     success: true,
