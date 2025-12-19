@@ -60,6 +60,6 @@ export default function handler(req, res) {
   console.log(`Received CN POST request for CN ${lastProcessedId} (bannerId: ${bannerId})`);
   res.status(200).json({
     success: true,
-    //received: body
+    received: body
   });
 }
