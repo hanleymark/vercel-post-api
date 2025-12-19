@@ -58,8 +58,9 @@ export default function handler(req, res) {
   }
   const bannerId = body?.metaData.bannerId;
   console.log(`Received CN POST request for CN ${lastProcessedId} (bannerId: ${bannerId})`);
+  console.log('Body:', JSON.stringify(body, null, 2));
   res.status(200).json({
     success: true,
-    received: body
+    //received: body
   });
 }
